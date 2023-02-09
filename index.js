@@ -30,6 +30,9 @@ const fromRelays = [
 const toRelays = [
   'wss://no-str.org',
   'wss://nostr.bongbong.com',
+  'wss://nostr.bostonbtc.com',
+  'wss://nostr-relay.texashedge.xyz',
+  'wss://nostr.radixrat.com'
 ]
 
 // init pools
@@ -42,7 +45,7 @@ let events = await relayFromPool.list(fromRelays, [
   {
     kinds: evKinds,
     since: Math.round(current - (60 * mins)),
-    limit: 100
+    limit: 200
   }
 ])
 
@@ -73,8 +76,10 @@ toRelays.forEach(async relayUrl => {
     })
   })
 
-  await sleep(interval)
+  // I am not sure about this part
+  await sleep(10 * events.length)
   relay.close()
+  log(info(`connection to ${relay.url} closed`))
 })
 
 await relayFromPool.close(fromRelays)
