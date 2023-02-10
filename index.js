@@ -13,7 +13,12 @@ const success = chalk.green;
 const info = chalk.yellow;
 const warn = chalk.bgYellow;
 
-// config broadcast
+/** 
+ * config broadcast
+ * @constant authors need to be hex keys
+ */
+
+const authors = undefined
 const evKinds = [0,1,3,6,7,10002]
 const mins = 10
 const interval = 1500      
@@ -42,7 +47,8 @@ const relayToPool = new SimplePool()
 // get events
 const current = Date.now()/1000
 let events = await relayFromPool.list(fromRelays, [
-  {
+  { 
+    authors: authors,
     kinds: evKinds,
     since: Math.round(current - (60 * mins)),
     limit: 200
